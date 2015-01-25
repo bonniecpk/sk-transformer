@@ -32,7 +32,8 @@ module ShopKeep
       @formatted = []
       CSV.foreach(@input, headers: true, header_converters: :symbol) do |row|
         raise InvalidFormat.new("Missing headers: #{HEADERS.join(', ')}...") unless row.headers[0..5] == HEADERS
-        @formatted << Transformer::_clean(Hash[row.headers[0..-1].zip(row.fields[0..-1])])
+        cleaned_data = Transformer::_clean(Hash[row.headers[0..-1].zip(row.fields[0..-1])])
+        @formatted << cleaned_data.collect { |entry| Transformer::_format_modifiers(entry) }
       end
 
       raise InvalidFormat.new("#{@input} has no data") if @formatted.size == 0
@@ -50,18 +51,46 @@ module ShopKeep
 
     protected
     class << self
+      # Assume the modifiers will come in pairs, and always has suffix _name and _price
+      def _format_modifiers(data)
+        modifiers    = data.select { |key, val| /^modifier/ =~ key }
+        no_modifiers = data.select { |key, val| /^modifier/ !~ key }
+
+        formatted_modifiers = modifiers.collect do |key, val|
+          if /_name$/ =~ key
+            modifier_key = _modifier_key(key)
+            {
+              modifier_key[:key] => val,
+              :price => modifiers["#{modifier_key[:prefix]}price".to_sym]
+            }
+          else
+            nil
+          end
+        end.compact
+
+        no_modifiers.merge(modifiers: formatted_modifiers)
+      end
+
+      def _modifier_key(key)
+        matched = /(?<prefix>modifier_[0-9]+_)/.match(key)
+        {
+          prefix: matched[:prefix],
+          key: key[matched[:prefix].length..-1].to_sym
+        }
+      end
+
       def _clean(hash)
         Hash[hash.collect do |key, val|
           case key
           when :item_id
-            [:id, _format(val)]
+            [:id, _format_value(val)]
           else 
-            val.nil? ? nil : [key, _format(val)]
+            val.nil? ? nil : [key, _format_value(val)]
           end
         end.compact]
       end
 
-      def _format(val)
+      def _format_value(val)
         if /\$/ =~ val
           Monetize.parse(val).to_f
         elsif /[0-9]+\.[0-9]+/ =~ val
