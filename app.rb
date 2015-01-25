@@ -24,7 +24,10 @@ unless $options.input && $options.output
   exit(-1)
 end
 
-ShopKeep::Transformer.new(
-  input:  $options.input,
-  output: $options.output,
+ShopKeep::TransformerFactory.get_transformer(
+  ShopKeep::TransformerFactory::TYPES[:csv],
+  {
+    input:  $options.input,
+    output: $options.output
+  }
 ).transform.to_file

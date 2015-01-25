@@ -1,28 +1,6 @@
 require_relative './spec_helper'
 
 describe ShopKeep::Transformer do
-  let(:data_dir) { "#{File.dirname(__FILE__)}/data" }
-
-  context "#transform" do
-    it "missing headers" do
-      expect { 
-        ShopKeep::Transformer.new(input: "#{data_dir}/no_header.csv").transform
-      }.to raise_error(ShopKeep::InvalidFormat)
-    end
-
-    it "missing data" do
-      expect { 
-        ShopKeep::Transformer.new(input: "#{data_dir}/no_data.csv").transform
-      }.to raise_error(ShopKeep::InvalidFormat)
-    end
-
-    it "all valid columns" do
-      expect(
-        ShopKeep::Transformer.new(input: "#{data_dir}/valid.csv").transform.to_json
-      ).to eq(File.read("#{data_dir}/valid.json"))
-    end
-  end
-
   context "#_clean" do
     class DummyTransformer < ShopKeep::Transformer
       def self.clean(hash)
@@ -102,6 +80,32 @@ describe ShopKeep::Transformer do
           {name: 'Medium', price: 1.0}
         ]
       })
+    end
+  end
+end
+
+
+
+describe ShopKeep::CSVTransformer do
+  let(:data_dir) { "#{File.dirname(__FILE__)}/data" }
+
+  context "#transform" do
+    it "missing headers" do
+      expect { 
+        ShopKeep::CSVTransformer.new(input: "#{data_dir}/no_header.csv").transform
+      }.to raise_error(ShopKeep::InvalidFormat)
+    end
+
+    it "missing data" do
+      expect { 
+        ShopKeep::CSVTransformer.new(input: "#{data_dir}/no_data.csv").transform
+      }.to raise_error(ShopKeep::InvalidFormat)
+    end
+
+    it "all valid columns" do
+      expect(
+        ShopKeep::CSVTransformer.new(input: "#{data_dir}/valid.csv").transform.to_json
+      ).to eq(File.read("#{data_dir}/valid.json"))
     end
   end
 end

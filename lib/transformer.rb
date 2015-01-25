@@ -2,9 +2,6 @@ module ShopKeep
   class InvalidFormat < StandardError; end
 
   ###---------------------------------------------------------------------------###
-  # This transformer assumes:
-  # - all columns have a rigid ordering
-  #
   # If we have other input formats, the subclass can inherit Transformer and
   # modify the transform method.
   ###---------------------------------------------------------------------------###
@@ -30,17 +27,7 @@ module ShopKeep
     end
 
     def transform
-      @formatted = []
-      CSV.foreach(@input, headers: true, header_converters: :symbol) do |row|
-        raise InvalidFormat.new("Missing headers: #{HEADERS.join(', ')}...") unless row.headers[0..5] == HEADERS
-        @formatted << Transformer::_format_modifiers(
-          Transformer::_clean(Hash[row.headers[0..-1].zip(row.fields[0..-1])])
-        )
-      end
-
-      raise InvalidFormat.new("#{@input} has no data") if @formatted.size == 0
-
-      self
+      raise NotImplementedError("Please inherit Transformer class and implement transform() to inject the data")
     end
 
     def to_json
@@ -108,6 +95,23 @@ module ShopKeep
           val
         end
       end
+    end
+  end
+
+
+  class CSVTransformer < Transformer
+    def transform
+      @formatted = []
+      CSV.foreach(@input, headers: true, header_converters: :symbol) do |row|
+        raise InvalidFormat.new("Missing headers: #{HEADERS.join(', ')}...") unless row.headers[0..5] == HEADERS
+        @formatted << Transformer::_format_modifiers(
+          Transformer::_clean(Hash[row.headers[0..-1].zip(row.fields[0..-1])])
+        )
+      end
+
+      raise InvalidFormat.new("#{@input} has no data") if @formatted.size == 0
+
+      self
     end
   end
 end
