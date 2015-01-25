@@ -53,11 +53,11 @@ module ShopKeep
 
     protected
     class << self
-      # Assume the modifiers will come in pairs, and always has suffix _name and _price
       def _format_modifiers(data)
         modifiers    = data.select { |key, val| /^modifier/ =~ key }
         no_modifiers = data.select { |key, val| /^modifier/ !~ key }
 
+        # Assume the modifiers will come in pairs, and always has suffix _name and _price
         formatted_modifiers = modifiers.collect do |key, val|
           if /_name$/ =~ key
             modifier_key = _modifier_key(key)
@@ -73,6 +73,11 @@ module ShopKeep
         no_modifiers.merge(modifiers: formatted_modifiers)
       end
 
+      # For example, modifier_1_name will return as
+      # {
+      #   prefix: 'modifier_1_',
+      #   key:    'name'
+      # }
       def _modifier_key(key)
         matched = /(?<prefix>modifier_[0-9]+_)/.match(key)
         {
