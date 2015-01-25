@@ -32,8 +32,9 @@ module ShopKeep
       @formatted = []
       CSV.foreach(@input, headers: true, header_converters: :symbol) do |row|
         raise InvalidFormat.new("Missing headers: #{HEADERS.join(', ')}...") unless row.headers[0..5] == HEADERS
-        cleaned_data = Transformer::_clean(Hash[row.headers[0..-1].zip(row.fields[0..-1])])
-        @formatted << cleaned_data.collect { |entry| Transformer::_format_modifiers(entry) }
+        @formatted << Transformer::_format_modifiers(
+          Transformer::_clean(Hash[row.headers[0..-1].zip(row.fields[0..-1])])
+        )
       end
 
       raise InvalidFormat.new("#{@input} has no data") if @formatted.size == 0

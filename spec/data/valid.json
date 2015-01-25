@@ -6,17 +6,28 @@
     "cost": 0.8,
     "price_type": "system",
     "quantity_on_hand": 100000,
-    "modifier_1_name": "Small",
-    "modifier_1_price": 0.25,
-    "modifier_2_name": "Medium",
-    "modifier_2_price": 0.0,
-    "modifier_3_name": "Large",
-    "modifier_3_price": 0.3
+    "modifiers": [
+      {
+        "name": "Small",
+        "price": 0.25
+      },
+      {
+        "name": "Medium",
+        "price": 0.0
+      },
+      {
+        "name": "Large",
+        "price": 0.3
+      }
+    ]
   },
   {
     "id": 111784,
     "description": "Delivery",
-    "price_type": "open"
+    "price_type": "open",
+    "modifiers": [
+
+    ]
   },
   {
     "id": 111022,
@@ -25,8 +36,12 @@
     "cost": 2.0,
     "price_type": "system",
     "quantity_on_hand": 9855,
-    "modifier_1_name": "Cream Cheese",
-    "modifier_1_price": 1.0
+    "modifiers": [
+      {
+        "name": "Cream Cheese",
+        "price": 1.0
+      }
+    ]
   },
   {
     "id": 2847224,
@@ -34,12 +49,20 @@
     "price": 68.57,
     "price_type": "system",
     "quantity_on_hand": 0,
-    "modifier_1_name": "Small",
-    "modifier_1_price": 0.0,
-    "modifier_2_name": "Medium",
-    "modifier_2_price": 1.0,
-    "modifier_3_name": "Large",
-    "modifier_3_price": 2.5
+    "modifiers": [
+      {
+        "name": "Small",
+        "price": 0.0
+      },
+      {
+        "name": "Medium",
+        "price": 1.0
+      },
+      {
+        "name": "Large",
+        "price": 2.5
+      }
+    ]
   },
   {
     "id": 2847225,
@@ -47,35 +70,50 @@
     "price": 70.0,
     "cost": 49,
     "price_type": "system",
-    "quantity_on_hand": 510
+    "quantity_on_hand": 510,
+    "modifiers": [
+
+    ]
   },
   {
     "id": 2847226,
     "description": 0,
     "price": 71.43,
     "price_type": "system",
-    "quantity_on_hand": 0
+    "quantity_on_hand": 0,
+    "modifiers": [
+
+    ]
   },
   {
     "id": 2847227,
     "description": 0,
     "price": 0.0,
     "price_type": "open",
-    "quantity_on_hand": 0
+    "quantity_on_hand": 0,
+    "modifiers": [
+
+    ]
   },
   {
     "id": 2847228,
     "description": 0,
     "price": 74.29,
     "price_type": "system",
-    "quantity_on_hand": 0
+    "quantity_on_hand": 0,
+    "modifiers": [
+
+    ]
   },
   {
     "id": 2847244,
     "description": 0,
     "price": 0.0,
     "price_type": "open",
-    "quantity_on_hand": 0
+    "quantity_on_hand": 0,
+    "modifiers": [
+
+    ]
   },
   {
     "id": 2847229,
@@ -83,21 +121,30 @@
     "price": 75.71,
     "cost": 34.53,
     "price_type": "system",
-    "quantity_on_hand": 0
+    "quantity_on_hand": 0,
+    "modifiers": [
+
+    ]
   },
   {
     "id": 2847230,
     "description": 0,
     "price": 77.14,
     "price_type": "system",
-    "quantity_on_hand": 0
+    "quantity_on_hand": 0,
+    "modifiers": [
+
+    ]
   },
   {
     "id": 2847231,
     "description": 0,
     "price": 78.57,
     "price_type": "system",
-    "quantity_on_hand": 0
+    "quantity_on_hand": 0,
+    "modifiers": [
+
+    ]
   },
   {
     "id": 2847232,
@@ -105,7 +152,10 @@
     "price": 80.0,
     "cost": 56,
     "price_type": "system",
-    "quantity_on_hand": 440
+    "quantity_on_hand": 440,
+    "modifiers": [
+
+    ]
   },
   {
     "id": 2847233,
@@ -113,9 +163,15 @@
     "price": 81.43,
     "price_type": "system",
     "quantity_on_hand": 0,
-    "modifier_1_name": "Jelly",
-    "modifier_1_price": 0.75,
-    "modifier_2_name": "Peanut Butter",
-    "modifier_2_price": 1.12
+    "modifiers": [
+      {
+        "name": "Jelly",
+        "price": 0.75
+      },
+      {
+        "name": "Peanut Butter",
+        "price": 1.12
+      }
+    ]
   }
 ]
