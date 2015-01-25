@@ -9,6 +9,7 @@ module ShopKeep
   # modify the transform method.
   ###---------------------------------------------------------------------------###
   class Transformer
+    # Transfomer will skip all extra columns unless they are specified in HEADERS or modifiers
     HEADERS = [
       :item_id,
       :description,

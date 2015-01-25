@@ -6,10 +6,10 @@
     [host]$ bundle
 
 ###To run
-    [host]$ ruby transformer.rb -i /path/to/input -o /path/to/output
+    [host]$ ruby app.rb -i /path/to/input -o /path/to/output
 
 ###To run tests
     [host]$ rspec
 
 ###To see command-line options
-    [host]$ ruby transformer.rb
+    [host]$ ruby app.rb
