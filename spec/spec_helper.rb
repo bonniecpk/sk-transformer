@@ -1,8 +1,4 @@
-require 'rack/test'
-
 require_relative '../init'
-
-include Rack::Test::Methods
 
 RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
