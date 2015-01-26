@@ -1,4 +1,4 @@
-require_relative './spec_helper'
+require_relative '../spec_helper'
 
 describe ShopKeep::Transformer do
   context "#_clean" do
@@ -87,7 +87,7 @@ end
 
 
 describe ShopKeep::CSVTransformer do
-  let(:data_dir) { "#{File.dirname(__FILE__)}/data" }
+  let(:data_dir) { "#{File.dirname(__FILE__)}/../data" }
 
   context "#transform" do
     it "missing headers" do
